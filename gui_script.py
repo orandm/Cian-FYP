@@ -10,7 +10,7 @@ import tkinter as tk
 
 class Application:
 
-    currentLatLon = [52.673775, -8.572778]
+    destinationLatLon = [52.673775, -8.572778]
 
     def __init__(self, master):
 
@@ -19,15 +19,15 @@ class Application:
         # Begin to build the GUI
         self.master.wm_title("Distance & Direction")
 
-        tk.Label(self.master, text="Current Position", font=("Helvetica", 16, 'bold'), padx=5, pady=10,
+        tk.Label(self.master, text="Destination Position", font=("Helvetica", 16, 'bold'), padx=5, pady=10,
                  justify="left").grid(row=0, column=0, sticky='W')
-        tk.Label(self.master, text="\t LAT: {0}".format(self.currentLatLon[0]), font=("Helvetica", 16),
+        tk.Label(self.master, text="\t LAT: {0}".format(self.destinationLatLon[0]), font=("Helvetica", 16),
                  pady=10).grid(row=0, column=1, columnspan=2)
-        tk.Label(self.master, text="\t LON: {0}".format(self.currentLatLon[1]), font=("Helvetica", 16),
+        tk.Label(self.master, text="\t LON: {0}".format(self.destinationLatLon[1]), font=("Helvetica", 16),
                  pady=10, padx=5).grid(row=0, column=3, columnspan=2)
 
-        tk.Label(self.master, text="Destination Position", font=("Helvetica", 16, 'bold'), pady=10,
-                 justify='left', padx=5).grid(row=1, column=0)
+        tk.Label(self.master, text="Current Position", font=("Helvetica", 16, 'bold'), pady=10,
+                 justify='left', padx=5).grid(row=1, column=0, sticky='W')
 
         tk.Label(self.master, text="\tLAT:", font=("Helvetica", 16), pady=10).grid(row=1, column=1)
         self.master.dLat = tk.Entry(self.master)
@@ -55,12 +55,12 @@ class Application:
         self.master.direction.grid(row=4, column=1, sticky='W')
 
     def calculations(self):
-        lat1, lon1 = np.radians(self.currentLatLon)
+        lat2, lon2 = np.radians(self.destinationLatLon)
 
         r = 6371  # Radius of Earth
 
         try:
-            lat2, lon2 = np.radians((float(self.master.dLat.get()), float(self.master.dLon.get())))
+            lat1, lon1 = np.radians((float(self.master.dLat.get()), float(self.master.dLon.get())))
         except ValueError:
             return
         # Distance
